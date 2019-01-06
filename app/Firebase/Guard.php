@@ -3,29 +3,30 @@
 namespace App\Firebase;
 
 use Firebase\Auth\Token\Verifier;
+use Illuminate\Http\Request;
 
 class Guard
 {
     protected $verifier;
 
+    /**
+     * @param Verifier $verifier
+     */
     public function __construct(Verifier $verifier)
     {
         $this->verifier = $verifier;
     }
 
     /**
-     * @param $request
-     * @return User|void
+     * @param Request $request
+     * @return User
      * @throws \Throwable
      */
-    public function user($request)
+    public function user(Request $request)
     {
         $token = $request->bearerToken();
-        try {
-            $token = $this->verifier->verifyIdToken($token);
-            return new User($token->getClaims());
-        } catch (\Exception $e) {
-            return;
-        }
+        $token = $this->verifier->verifyIdToken($token);
+
+        return new User($token->getClaims());
     }
 }

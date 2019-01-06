@@ -14,7 +14,7 @@ class User implements Authenticatable
     private $claims;
 
     /**
-     * Creates a new authenticatable user from Firebase.
+     * Creates a new Authenticatable user from Firebase.
      *
      * @param $claims
      */
@@ -30,17 +30,17 @@ class User implements Authenticatable
      */
     public function getAuthIdentifierName()
     {
-        return 'sub';
+        return 'user_id';
     }
 
     /**
      * Get the unique identifier for the user.
      *
-     * @return mixed
+     * @return string
      */
     public function getAuthIdentifier()
     {
-        return (string)$this->claims['sub'];
+        return (string)$this->claims['user_id'];
     }
 
     /**
