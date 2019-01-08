@@ -15,8 +15,10 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('fire_base_user_id', 128)->index();
             $table->string('email', 255);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

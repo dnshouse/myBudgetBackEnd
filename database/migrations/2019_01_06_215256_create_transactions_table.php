@@ -22,6 +22,17 @@ class CreateTransactionsTable extends Migration
             $table->string('note', 500)->nullable();
             $table->string('recurring', 20)->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('account_id')
+                ->references('id')->on('accounts')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
+            $table->foreign('category_id')
+                ->references('id')->on('categories')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
         });
     }
 

@@ -21,6 +21,12 @@ class CreateAccountsTable extends Migration
             $table->string('icon', 50)->nullable();
             $table->string('colour', 7)->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
